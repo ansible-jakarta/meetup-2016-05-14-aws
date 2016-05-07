@@ -5,6 +5,7 @@
     resource_tags: {
       "Name" : "vpc-main"
     }
+    internet_gateway: True
   register: vpc_main
 
 - name: Showing vpc_main

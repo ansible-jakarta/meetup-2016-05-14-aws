@@ -1,83 +1,83 @@
-- name: Creating vpc-subnet-1-A
+- name: Creating vpc-public-subnet-1-A
   ec2_vpc_subnet:
     state: present
     vpc_id: "{{ vpc_id }}"
     cidr: 172.31.0.0/25
     az: "ap-southeast-1a"
     resource_tags:
-      Name: vpc-subnet-1-A
-  register: vpc_subnet_1_A
+      Name: vpc-public-subnet-1-A
+  register: vpc_public_subnet_1_A
 
-- name: vpc-subnet-1-A
+- name: vpc-public-subnet-1-A
   debug:
-    var: vpc_subnet_1_A.subnet.id
+    var: vpc_public_subnet_1_A.subnet.id
 
-- name: Creating vpc-subnet-1-B
+- name: Creating vpc-public-subnet-1-B
   ec2_vpc_subnet:
     state: present
     vpc_id: "{{ vpc_id }}"
     cidr: 172.31.0.128/25
     az: "ap-southeast-1b"
     resource_tags:
-      Name: vpc-subnet-1-B
-  register: vpc_subnet_1_B
+      Name: vpc-public-subnet-1-B
+  register: vpc_public_subnet_1_B
 
-- name: vpc-subnet-1-B
+- name: vpc-public-subnet-1-B
   debug:
-    var: vpc_subnet_1_B.subnet.id
+    var: vpc_public_subnet_1_B.subnet.id
 
-- name: Creating vpc-subnet-2-A
+- name: Creating vpc-private-subnet-2-A
   ec2_vpc_subnet:
     state: present
     vpc_id: "{{ vpc_id }}"
     cidr: 172.31.1.0/25
     az: "ap-southeast-1a"
     resource_tags:
-      Name: vpc-subnet-2-A
-  register: vpc_subnet_2_A
+      Name: vpc-private-subnet-2-A
+  register: vpc_private_subnet_2_A
 
-- name: vpc-subnet-2-A
+- name: vpc-private-subnet-2-A
   debug:
-    var: vpc_subnet_2_A.subnet.id
+    var: vpc_private_subnet_2_A.subnet.id
 
-- name: Creating vpc-subnet-2-B
+- name: Creating vpc-private-subnet-2-B
   ec2_vpc_subnet:
     state: present
     vpc_id: "{{ vpc_id }}"
     cidr: 172.31.1.128/25
     az: "ap-southeast-1b"
     resource_tags:
-      Name: vpc-subnet-2-B
-  register: vpc_subnet_2_B
+      Name: vpc-private-subnet-2-B
+  register: vpc_private_subnet_2_B
 
-- name: vpc-subnet-2-B
+- name: vpc-private-subnet-2-B
   debug:
-    var: vpc_subnet_2_B.subnet.id
+    var: vpc_private_subnet_2_B.subnet.id
 
-- name: Creating vpc-subnet-3-A
+- name: Creating vpc-private-subnet-3-A
   ec2_vpc_subnet:
     state: present
     vpc_id: "{{ vpc_id }}"
     cidr: 172.31.2.0/25
     az: "ap-southeast-1a"
     resource_tags:
-      Name: vpc-subnet-3-A
-  register: vpc_subnet_3_A
+      Name: vpc-private-subnet-3-A
+  register: vpc_private_subnet_3_A
 
-- name: vpc-subnet-3-A
+- name: vpc-private-subnet-3-A
   debug:
-    var: vpc_subnet_3_A.subnet.id
+    var: vpc_private_subnet_3_A.subnet.id
 
-- name: Creating vpc-subnet-3-B
+- name: Creating vpc-private-subnet-3-B
   ec2_vpc_subnet:
     state: present
     vpc_id: "{{ vpc_id }}"
     cidr: 172.31.2.128/25
     az: "ap-southeast-1b"
     resource_tags:
-      Name: vpc-subnet-3-B
-  register: vpc_subnet_3_B
+      Name: vpc-private-subnet-3-B
+  register: vpc_private_subnet_3_B
 
-- name: vpc-subnet-3-B
+- name: vpc-private-subnet-3-B
   debug:
-    var: vpc_subnet_3_B.subnet.id
+    var: vpc_private_subnet_3_B.subnet.id

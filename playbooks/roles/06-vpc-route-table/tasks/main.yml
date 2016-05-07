@@ -1,0 +1,31 @@
+- name: Creating vpc-main-public-rtb
+  ec2_vpc_route_table:
+    vpc_id: "{{ vpc_id }}"
+    tags:
+      Name: vpc-main-public-rtb
+    subnets:
+      - "{{ vpc_public_subnet_1_A.subnet.id }}"
+      - "{{ vpc_public_subnet_1_B.subnet.id }}"
+    routes:
+      - dest: 0.0.0.0/0
+        gateway_id: "{{ vpc_main_igw.gateway_id }}"
+  register: vpc_main_public_rtb
+
+# Bugs possibility:
+# https://github.com/ansible/ansible-modules-extras/issues/1510
+# https://github.com/ansible/ansible-modules-extras/issues/2023
+- name: Creating vpc-main-private-rtb
+  ec2_vpc_route_table:
+    vpc_id: "{{ vpc_id }}"
+    tags:
+      Name: vpc-main-private-rtb
+    subnets:
+      - "{{ vpc_private_subnet_2_A.subnet.id }}"
+      - "{{ vpc_private_subnet_2_B.subnet.id }}"
+      - "{{ vpc_private_subnet_3_A.subnet.id }}"
+      - "{{ vpc_private_subnet_3_B.subnet.id }}"
+    routes:
+      - dest: 0.0.0.0/0
+        interface_id: "{{ vpc_main_nat.interface_id }}"
+  register: vpc_main_private_rtb
+  ignore_errors: True

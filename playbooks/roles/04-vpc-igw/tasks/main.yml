@@ -7,3 +7,10 @@
 - name: vpc-main-igw
   debug:
     var: vpc_main_igw
+
+- name: Tag vpc-main-gateway
+  ec2_tag:
+    resource: "{{ vpc_main_igw.gateway_id }}"
+    state: present
+    tags:
+      Name: "vpc-main-igw"

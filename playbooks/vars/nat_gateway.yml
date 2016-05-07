@@ -1,0 +1,4 @@
+vpc_main_nat:
+  instance_id: "nat-0d8763c85bbd83a82"
+  interface_id: "eni-f20dc6ba"
+  eip_allocation_id: "eipalloc-cce251a9"
