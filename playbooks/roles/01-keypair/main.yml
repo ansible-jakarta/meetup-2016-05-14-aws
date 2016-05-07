@@ -1,0 +1,20 @@
+- name: Creating ec2_key with name ec2_antony
+  ec2_key:
+    name: ec2_antony
+    state: present
+  register: ec2_key_generated
+
+- name: Debug ec2_key_generated
+  debug:
+    var: ec2_key_generated
+
+- name: Ensure .ssh directory
+  file:
+    path: "{{ home_directory }}/.ssh"
+    state: directory
+
+- name: Saving private key to ~/.ssh
+  template:
+    src: pk.j2
+    dest: "{{ home_directory }}/.ssh/ec2_antony"
+  when: ec2_key_generated.changed
