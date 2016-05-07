@@ -1,0 +1,20 @@
+- name: Create Main VPC
+  ec2_vpc:
+    state: present
+    cidr_block: 172.31.0.0/16
+    resource_tags: {
+      "Name" : "vpc-main"
+    }
+  register: vpc_main
+
+- name: Showing vpc_main
+  debug:
+    var: vpc_main
+
+- name: Setting VPC variables
+  set_fact:
+    vpc_id: "{{ vpc_main.vpc.id }}"
+
+- name: Working VPC ID
+  debug:
+    var: vpc_id

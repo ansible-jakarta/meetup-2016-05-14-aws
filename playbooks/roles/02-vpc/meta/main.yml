@@ -1,0 +1,3 @@
+dependencies:
+  - 00-common
+  - 01-keypair
