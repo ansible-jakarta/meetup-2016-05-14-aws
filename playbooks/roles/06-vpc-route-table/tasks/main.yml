@@ -14,6 +14,7 @@
 # Bugs possibility:
 # https://github.com/ansible/ansible-modules-extras/issues/1510
 # https://github.com/ansible/ansible-modules-extras/issues/2023
+# We will consider this error ignored to be able to proceed to the next stage. Most likely route table will not be needed anymore after this level.
 - name: Creating vpc-main-private-rtb
   ec2_vpc_route_table:
     vpc_id: "{{ vpc_id }}"

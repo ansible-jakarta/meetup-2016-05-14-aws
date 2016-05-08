@@ -1,0 +1,4 @@
+ami:
+  ubuntu:
+    v14.04:
+      ami_id: "ami-25c00c46"

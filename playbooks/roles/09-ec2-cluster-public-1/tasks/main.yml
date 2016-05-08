@@ -1,0 +1,23 @@
+- name: Reading AMI database
+  include_vars: "ami.yml"
+
+- name: Reading public_1_cluster metadata
+  include_vars: "cluster/public_1.yml"
+
+- name: Check base AMI-ID for Ubuntu 14.04
+  debug:
+    msg: "{{ ami[public_1.spec.base_os][public_1.spec.base_version].ami_id }}"
+
+- name: Launch public-1 cluster instances
+  ec2:
+    key_name: "{{ public_1.spec.keypair }}"
+    group: "{{ public_1.spec.security_group }}"
+    instance_type: "{{ public_1.spec.instance_type }}"
+    image: "{{ ami[public_1.spec.base_os][public_1.spec.base_version].ami_id }}"
+    wait: yes
+    count: "{{ item.count }}"
+    instance_profile_name: "{{ public_1.spec.instance_profile_name }}"
+    instance_tags: "{{ public_1.spec.instance_tags }}"
+    monitoring: yes
+    vpc_subnet_id: "{{ item.subnet_id }}"
+  with_items: public_1.cluster

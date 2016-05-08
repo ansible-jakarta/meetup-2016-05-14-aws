@@ -1,0 +1,19 @@
+public_1:
+  spec:
+    base_os: "ubuntu"
+    base_version: "v14.04"
+    keypair: "{{ keypair_name }}"
+    security_group: "public-1"
+    instance_type: "t2.nano"
+    instance_profile_name: "profile-public-1"
+    instance_tags:
+      Group: "public-1"
+      Type: "web"
+      Environment: "production"
+  cluster:
+    - availability_zone: A
+      count: 1
+      subnet_id: "{{ vpc_public_subnet_1_A.subnet.id }}"
+    - availability_zone: B
+      count: 1
+      subnet_id: "{{ vpc_public_subnet_1_B.subnet.id }}"

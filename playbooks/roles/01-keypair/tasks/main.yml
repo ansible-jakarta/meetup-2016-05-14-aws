@@ -18,3 +18,10 @@
     src: pk.j2
     dest: "{{ home_directory }}/.ssh/ec2_root_key"
   when: ec2_key_generated.changed
+
+- set_fact:
+    keypair_name: "{{ ec2_key_generated.key.name }}"
+
+- name: Main keypair name
+  debug:
+    var: keypair_name

@@ -1,0 +1,23 @@
+- name: Reading security group
+  include_vars: "security_groups.yml"
+
+- name: Create security group
+  ec2_group:
+    name: "{{ item.name }}"
+    description: "{{ item.name }}"
+    vpc_id: "{{ vpc_id }}"
+    rules: "{{ item.rules }}"
+    rules_egress: "{{ item.rules_egress }}"
+  register: security_groups_result
+  with_items: security_groups
+
+- name: Tag security groups
+  ec2_tag:
+    state: present
+    tags: "{{ item.item.tags }}"
+    resource: "{{ item.group_id }}"
+  with_items: security_groups_result.results
+
+- name: Security groups
+  debug:
+    var: security_groups_result
