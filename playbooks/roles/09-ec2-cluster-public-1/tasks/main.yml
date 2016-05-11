@@ -15,9 +15,15 @@
     instance_type: "{{ public_1.spec.instance_type }}"
     image: "{{ ami[public_1.spec.base_os][public_1.spec.base_version].ami_id }}"
     wait: yes
-    count: "{{ item.count }}"
+    exact_count: "{{ item.count }}"
+    count_tag: "{{ item.instance_tags }}"
     instance_profile_name: "{{ public_1.spec.instance_profile_name }}"
-    instance_tags: "{{ public_1.spec.instance_tags }}"
+    instance_tags: "{{ item.instance_tags }}"
     monitoring: yes
     vpc_subnet_id: "{{ item.subnet_id }}"
   with_items: public_1.cluster
+  register: ec2_cluster_public_1
+
+- name: ec2-cluster-public-1
+  debug:
+    var: ec2_cluster_public_1
