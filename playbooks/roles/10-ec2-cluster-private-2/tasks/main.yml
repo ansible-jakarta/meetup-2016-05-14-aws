@@ -22,7 +22,18 @@
     monitoring: yes
     vpc_subnet_id: "{{ item.subnet_id }}"
   with_items: private_2.cluster
-  register: ec2_cluster_private_2
+  register: ec2_cluster_private_2_result
+
+- name: Setting ec2_cluster_private_2_result
+  debug:
+    var: item
+  with_flattened:
+    - "{{ ec2_cluster_private_2_result.results|map(attribute='tagged_instances')|list }}"
+  register: ec2_cluster_private_2_result_tmp
+  no_log: True
+
+- set_fact:
+    ec2_cluster_private_2: "{{ ec2_cluster_private_2_result_tmp.results|map(attribute='item')|list }}"
 
 - name: ec2-cluster-private-2
   debug:

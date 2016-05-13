@@ -1,0 +1,28 @@
+- name: Create public ELB
+  ec2_elb_lb:
+    name: "elb-public"
+    state: present
+    listeners:
+      - protocol: http
+        load_balancer_port: 80
+        instance_port: 9090
+    subnets:
+      - "{{ vpc_public_subnet_1_A.subnet.id }}"
+      - "{{ vpc_public_subnet_1_B.subnet.id }}"
+    health_check:
+      ping_protocol: http # options are http, https, ssl, tcp
+      ping_port: 9090
+      ping_path: "/ping" # not required for tcp or ssl
+      response_timeout: 5 # seconds
+      interval: 30 # seconds
+      unhealthy_threshold: 2
+      healthy_threshold: 10
+  register: elb_public_result
+
+- name: Set elb-public
+  set_fact:
+    elb_public: "{{ elb_public_result.elb }}"
+
+- name: elb-public
+  debug:
+    var: elb_public
