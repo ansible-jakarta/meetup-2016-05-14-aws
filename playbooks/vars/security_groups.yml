@@ -62,3 +62,9 @@ security_groups:
       - <<: *OPEN_ALL_IN
     rules_egress:
       - <<: *OPEN_ALL_OUT
+
+  - name: public-1-elb
+    tags:
+      Name: sg-public-1-elb
+      Type: security-group
+    <<: *OPEN_ALL

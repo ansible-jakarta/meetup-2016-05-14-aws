@@ -1,0 +1,29 @@
+- name: Reading AMI database
+  include_vars: "ami.yml"
+
+- name: Reading private_3_cluster metadata
+  include_vars: "cluster/private_3.yml"
+
+- name: Check base AMI-ID for Ubuntu 14.04
+  debug:
+    msg: "{{ ami[private_3.spec.base_os][private_3.spec.base_version].ami_id }}"
+
+- name: Launch private-3 cluster instances
+  ec2:
+    key_name: "{{ private_3.spec.keypair }}"
+    group: "{{ private_3.spec.security_group }}"
+    instance_type: "{{ private_3.spec.instance_type }}"
+    image: "{{ ami[private_3.spec.base_os][private_3.spec.base_version].ami_id }}"
+    wait: yes
+    exact_count: "{{ item.count }}"
+    count_tag: "{{ item.instance_tags }}"
+    instance_profile_name: "{{ private_3.spec.instance_profile_name }}"
+    instance_tags: "{{ item.instance_tags }}"
+    monitoring: yes
+    vpc_subnet_id: "{{ item.subnet_id }}"
+  with_items: private_3.cluster
+  register: ec2_cluster_private_3
+
+- name: ec2-cluster-private-3
+  debug:
+    var: ec2_cluster_private_3

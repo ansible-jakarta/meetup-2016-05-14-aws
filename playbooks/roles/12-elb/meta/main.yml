@@ -1,0 +1,5 @@
+dependencies:
+  - 00-common
+  - 02-vpc
+  - 03-vpc-subnet
+  - 07-security-group

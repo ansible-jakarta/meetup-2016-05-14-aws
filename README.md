@@ -1,15 +1,15 @@
-# ** Deploying Network & Server Infrastructure in AWS using Ansible **
+# Deploying Network & Server Infrastructure in AWS using Ansible
 Hello all, this is the repository for Ansible meet-up Jakarta - 14 May 2016.
 
 We will assume that the reader are using Linux / Mac OS X operating system. All of the scripts in this repository will also help the reader to setup Ansible quickly.
 
-### ** *Background* **
+### *Background*
 
 When we want to deploy our server infrastructure, most of the case it will not be just about server / machine that hosts our application. To address the need to scale in a distributed system, there are lot of things that we need to care about, especially our **network & server infrastructure**. A good architected infrastructure will give us a lot of benefits starting from agility, security, and scalability not only for addressing our current needs but for anticipating future needs.
 
 AWS is a cloud platform from Amazon that can help us on building the right things that scale. In this demo, we will learn on how to create a network & server infrastructure in AWS by leveraging Ansible.
 
-### ** *Getting Started* **
+### *Getting Started*
 1. Create an AWS account. Please go to amazon.com to register your account.
 2. Access your AWS Console. Normally we go to: ** _http://console.aws.amazon.com_**
 3. Once you gain access to your console
@@ -32,7 +32,13 @@ $ ./setup-ubuntu.sh (depends whether you are using Mac OS X or Ubuntu)
   * 02-vpc
   * 03-vpc-subnet
   * 04-vpc-igw
-  * 05-vpc-route-table
+  * 05-vpc-nat
+  * 06-vpc-route-table
+  * 07-security-group
+  * 08-iam-role
+  * 09-ec2-cluster-public-1
+  * 10-ec2-cluster-private-2
+  * 11-ec2-cluster-private-3
 
   To execute the command:
   ``` bash
@@ -40,16 +46,16 @@ $ ./setup-ubuntu.sh (depends whether you are using Mac OS X or Ubuntu)
   ```
 
 
-### ** *Content* **
+### *Content*
 
-### ** *Contributors* **
+### *Contributors*
 * Antony Halim (antony@airyrooms.com)
 
-### ** *Advisors* **
+### *Advisors*
 * Shvetsov Serhiy (shvetsov@traveloka.com)
 * Michel Alexandre Salim (michel@traveloka.com)
 
-### ** *References* **
+### *References*
 - Learning about Markdown : https://guides.github.com/features/mastering-markdown/
 
 Last but not least, lot of thanks to Serhiy & Michel as the organizers, for the opportunity to present this topic !
