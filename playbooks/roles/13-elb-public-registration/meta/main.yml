@@ -1,0 +1,8 @@
+dependencies:
+  - 00-common
+  - 01-keypair
+  - 02-vpc
+  - 03-vpc-subnet
+  - 07-security-group
+  - 09-ec2-cluster-public-1
+  - 12-elb

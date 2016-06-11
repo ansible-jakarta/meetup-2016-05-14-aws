@@ -1,0 +1,6 @@
+- name: Reading current NAT configuration (still manually for now, but an Ansible module is in work)
+  include_vars: "nat_gateway.yml"
+
+- name: vpc-main-nat
+  debug:
+    var: vpc_main_nat

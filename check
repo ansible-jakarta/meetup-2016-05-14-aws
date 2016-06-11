@@ -1,0 +1,3 @@
+#!/bin/bash
+export EC2_INI_PATH=playbooks/config/ec2.ini
+/usr/local/bin/python playbooks/inventory/ec2.py --list

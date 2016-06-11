@@ -1,0 +1,7 @@
+- name: Get $HOME
+  shell: echo $HOME
+  register: home_environment_variable
+
+- name: Set $HOME directory
+  set_fact:
+    home_directory: "{{ home_environment_variable.stdout_lines[0] }}"

@@ -1,0 +1,40 @@
+- name: Reading AMI database
+  include_vars: "ami.yml"
+
+- name: Reading private_2_cluster metadata
+  include_vars: "cluster/private_2.yml"
+
+- name: Check base AMI-ID for Ubuntu 14.04
+  debug:
+    msg: "{{ ami[private_2.spec.base_os][private_2.spec.base_version].ami_id }}"
+
+- name: Launch private-2 cluster instances
+  ec2:
+    key_name: "{{ private_2.spec.keypair }}"
+    group: "{{ private_2.spec.security_group }}"
+    instance_type: "{{ private_2.spec.instance_type }}"
+    image: "{{ ami[private_2.spec.base_os][private_2.spec.base_version].ami_id }}"
+    wait: yes
+    exact_count: "{{ item.count }}"
+    count_tag: "{{ item.instance_tags }}"
+    instance_profile_name: "{{ private_2.spec.instance_profile_name }}"
+    instance_tags: "{{ item.instance_tags }}"
+    monitoring: yes
+    vpc_subnet_id: "{{ item.subnet_id }}"
+  with_items: private_2.cluster
+  register: ec2_cluster_private_2_result
+
+- name: Setting ec2_cluster_private_2_result
+  debug:
+    var: item
+  with_flattened:
+    - "{{ ec2_cluster_private_2_result.results|map(attribute='tagged_instances')|list }}"
+  register: ec2_cluster_private_2_result_tmp
+  no_log: True
+
+- set_fact:
+    ec2_cluster_private_2: "{{ ec2_cluster_private_2_result_tmp.results|map(attribute='item')|list }}"
+
+- name: ec2-cluster-private-2
+  debug:
+    var: ec2_cluster_private_2

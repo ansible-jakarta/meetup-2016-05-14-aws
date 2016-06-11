@@ -1,0 +1,4 @@
+iam_roles:
+  - name: profile-public-1
+  - name: profile-private-2
+  - name: profile-private-3

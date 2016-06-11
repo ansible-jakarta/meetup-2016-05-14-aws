@@ -1,0 +1,70 @@
+open_all: &OPEN_ALL
+  rules: &OPEN_ALL_IN
+    - proto: tcp
+      from_port: 0
+      to_port: 65535
+      cidr_ip: 0.0.0.0/0
+  rules_egress: &OPEN_ALL_OUT
+    - proto: tcp
+      from_port: 0
+      to_port: 65535
+      cidr_ip: 0.0.0.0/0
+
+open_http: &OPEN_HTTP
+  rules: &OPEN_HTTP_IN
+    - proto: tcp
+      from_port: 80
+      to_port: 80
+      cidr_ip: 0.0.0.0/0
+  rules_egress: &OPEN_HTTP_OUT
+    - proto: tcp
+      from_port: 80
+      to_port: 80
+      cidr_ip: 0.0.0.0/0
+
+open_postgresql: &OPEN_POSTGRESQL
+  rules: &OPEN_POSTGRESQL_IN
+    - proto: tcp
+      from_port: 5432
+      to_port: 5432
+      cidr_ip: 0.0.0.0/0
+  rules_egress: &OPEN_POSTGRESQL_OUT
+    - proto: tcp
+      from_port: 5432
+      to_port: 5432
+      cidr_ip: 0.0.0.0/0
+
+security_groups:
+  - name: public-1
+    tags:
+      Name: sg-public-1
+      Type: security-group
+    <<: *OPEN_ALL
+
+  - name: private-2
+    tags:
+      Name: sg-private-2
+      Type: security-group
+    rules:
+      - <<: *OPEN_HTTP_IN
+      - <<: *OPEN_POSTGRESQL_IN
+      - <<: *OPEN_ALL_IN
+    rules_egress:
+      - <<: *OPEN_ALL_OUT
+
+  - name: private-3
+    tags:
+      Name: sg-private-3
+      Type: security-group
+    rules:
+      - <<: *OPEN_HTTP_IN
+      - <<: *OPEN_POSTGRESQL_IN
+      - <<: *OPEN_ALL_IN
+    rules_egress:
+      - <<: *OPEN_ALL_OUT
+
+  - name: public-1-elb
+    tags:
+      Name: sg-public-1-elb
+      Type: security-group
+    <<: *OPEN_ALL

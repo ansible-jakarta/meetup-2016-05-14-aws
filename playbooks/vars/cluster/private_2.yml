@@ -1,0 +1,23 @@
+private_2:
+  spec:
+    base_os: "ubuntu"
+    base_version: "v14.04"
+    keypair: "{{ keypair_name }}"
+    security_group: "private-2"
+    instance_type: "t2.nano"
+    instance_profile_name: "profile-private-2"
+    instance_tags: &TAGS
+      Group: "private-2"
+      Type: "app"
+      Environment: "production"
+  cluster:
+    - count: 1
+      subnet_id: "{{ vpc_private_subnet_2_A.subnet.id }}"
+      instance_tags:
+        AvailabilityZone: A
+        <<: *TAGS
+    - count: 1
+      subnet_id: "{{ vpc_private_subnet_2_B.subnet.id }}"
+      instance_tags:
+        AvailabilityZone: B
+        <<: *TAGS

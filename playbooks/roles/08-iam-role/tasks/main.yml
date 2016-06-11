@@ -1,0 +1,10 @@
+- name: Reading security group
+  include_vars: "iam_roles.yml"
+
+- name: Creating IAM Roles
+  iam:
+    iam_type: role
+    name: "{{ item.name }}"
+    state: present
+  register: iam_roles_result
+  with_items: iam_roles

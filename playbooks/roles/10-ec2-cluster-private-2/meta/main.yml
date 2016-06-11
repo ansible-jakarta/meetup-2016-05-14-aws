@@ -1,0 +1,7 @@
+dependencies:
+  - 00-common
+  - 01-keypair
+  - 02-vpc
+  - 03-vpc-subnet
+  - 07-security-group
+  - 08-iam-role

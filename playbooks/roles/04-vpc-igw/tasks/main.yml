@@ -1,0 +1,16 @@
+- name: Create VPC internet gateway
+  ec2_vpc_igw:
+    vpc_id: "{{ vpc_id }}"
+    state: present
+  register: vpc_main_igw
+
+- name: vpc-main-igw
+  debug:
+    var: vpc_main_igw
+
+- name: Tag vpc-main-gateway
+  ec2_tag:
+    resource: "{{ vpc_main_igw.gateway_id }}"
+    state: present
+    tags:
+      Name: "vpc-main-igw"
